@@ -70,7 +70,8 @@ is_conf_dir=$is_core_dir/conf
 is_log_dir=/var/log/$is_core
 is_sh_bin=/usr/local/bin/$is_core
 is_sh_dir=$is_core_dir/sh
-is_sh_repo=$author/$is_core
+# Use our own secure repo instead of 233boy
+is_sh_repo=charmgene/wall
 is_pkg="wget unzip"
 is_config_json=$is_core_dir/config.json
 tmp_var_lists=(
@@ -168,7 +169,8 @@ download() {
         is_ok=$is_core_ok
         ;;
     sh)
-        link=https://github.com/${is_sh_repo}/releases/latest/download/code.zip
+        # Download from our own secure repository
+        link=https://raw.githubusercontent.com/charmgene/wall/main/code.zip
         name="$is_core_name 脚本"
         tmpfile=$tmpsh
         is_ok=$is_sh_ok
@@ -239,7 +241,7 @@ pass_args() {
     while [[ $# -gt 0 ]]; do
         case $1 in
         online)
-            err "如果想要安装旧版本, 请转到: https://github.com/233boy/v2ray/tree/old"
+            err "此参数已禁用"
             ;;
         -f | --core-file)
             [[ -z $2 ]] && {
@@ -291,7 +293,7 @@ exit_and_del_tmpdir() {
     [[ ! $1 ]] && {
         msg err "哦豁.."
         msg err "安装过程出现错误..."
-        echo -e "反馈问题) https://github.com/${is_sh_repo}/issues"
+        echo -e "反馈问题) https://github.com/charmgene/wall/issues"
         echo
         exit 1
     }
