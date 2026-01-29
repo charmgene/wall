@@ -1,6 +1,9 @@
 # Release assets (binary files - not for git)
 release-assets/
 
+# Auth folder (sensitive credentials)
+auth/
+
 # macOS
 .DS_Store
 
