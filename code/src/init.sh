@@ -54,10 +54,11 @@ load() {
     . $is_sh_dir/src/$1
 }
 
-# wget add --no-check-certificate
+# wget wrapper - SSL verification enabled for security
+# If you have SSL issues, run: apt install ca-certificates
 _wget() {
     # [[ $proxy ]] && export https_proxy=$proxy
-    wget --no-check-certificate "$@"
+    wget "$@"
 }
 
 # yum or apt-get

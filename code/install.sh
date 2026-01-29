@@ -114,10 +114,12 @@ load() {
     . $is_sh_dir/src/$1
 }
 
-# wget add --no-check-certificate
+# wget wrapper with optional proxy support
+# Note: --no-check-certificate removed for security
+# If you have SSL issues, ensure ca-certificates is installed
 _wget() {
     [[ $proxy ]] && export https_proxy=$proxy
-    wget --no-check-certificate $*
+    wget $*
 }
 
 # print a mesage
