@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# All downloads from: https://github.com/charmgene/wall/
+wall_repo="charmgene/wall"
+
 protocol_list=(
     VMess-TCP
     VMess-mKCP
@@ -788,7 +791,7 @@ uninstall() {
     [[ $is_install_sh ]] && return # reinstall
     _green "\n卸载完成!"
     msg "脚本哪里需要完善? 请反馈"
-    msg "反馈问题) $(msg_ul https://github.com/${is_sh_repo}/issues)\n"
+    msg "反馈问题) $(msg_ul https://github.com/${wall_repo}/issues)\n"
 }
 
 # manage run status
@@ -1642,7 +1645,7 @@ update() {
         is_update_name=core
         is_show_name=$is_core_name
         is_run_ver=v${is_core_ver##* }
-        is_update_repo=$is_core_repo
+        is_update_repo=$wall_repo
         ;;
     2 | sh)
         # Script updates disabled for security - prevents downloading from 3rd party repo
@@ -1656,7 +1659,7 @@ update() {
         is_update_name=caddy
         is_show_name="Caddy"
         is_run_ver=$is_caddy_ver
-        is_update_repo=$is_caddy_repo
+        is_update_repo=$wall_repo
         ;;
     *)
         err "无法识别 ($1), 请使用: $is_core update [core | dat | caddy] [ver]"
@@ -1681,7 +1684,7 @@ update() {
     fi
     download $is_update_name $is_new_ver
     msg "更新成功, 当前 $is_show_name 版本: $(_green $is_new_ver)\n"
-    msg "$(_green 请查看更新说明: https://github.com/$is_update_repo/releases/tag/$is_new_ver)\n"
+    msg "$(_green 请查看更新说明: https://github.com/${wall_repo}/releases/tag/$is_new_ver)\n"
     [[ $is_update_name == 'core' ]] && $is_core restart
     [[ $is_update_name == 'caddy' ]] && manage restart $is_update_name &
 }

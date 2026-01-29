@@ -1,0 +1,11 @@
+# Release assets (binary files - not for git)
+release-assets/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

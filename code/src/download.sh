@@ -1,8 +1,18 @@
+# All downloads from: https://github.com/charmgene/wall/
+# Required release assets - upload these files to your GitHub releases:
+#   - v2ray-linux-64.zip
+#   - v2ray-linux-arm64-v8a.zip
+#   - jq-linux-amd64, jq-linux-arm64
+#   - geoip.dat, geosite.dat
+#   - caddy_linux_amd64.tar.gz, caddy_linux_arm64.tar.gz
+wall_repo="charmgene/wall"
+
 get_latest_version() {
     case $1 in
     core)
         name=$is_core_name
-        url="https://api.github.com/repos/${is_core_repo}/releases/latest?v=$RANDOM"
+        # Get version from wall repo releases
+        url="https://api.github.com/repos/${wall_repo}/releases/latest?v=$RANDOM"
         ;;
     sh)
         # Script version check disabled for security
@@ -11,7 +21,8 @@ get_latest_version() {
         ;;
     caddy)
         name="Caddy"
-        url="https://api.github.com/repos/$is_caddy_repo/releases/latest?v=$RANDOM"
+        # Get version from wall repo releases
+        url="https://api.github.com/repos/${wall_repo}/releases/latest?v=$RANDOM"
         ;;
     esac
     latest_ver=$(_wget -qO- $url | grep tag_name | grep -E -o 'v([0-9.]+)')
@@ -33,7 +44,8 @@ download() {
     core)
         name=$is_core_name
         tmpfile=$tmpdir/$is_core.zip
-        link="https://github.com/${is_core_repo}/releases/download/${latest_ver}/${is_core}-linux-${is_core_arch}.zip"
+        # Download v2ray core from wall repo
+        link="https://github.com/${wall_repo}/releases/download/${latest_ver}/${is_core}-linux-${is_core_arch}.zip"
         download_file
         unzip -qo $tmpfile -d $is_core_dir/bin
         chmod +x $is_core_bin
@@ -44,21 +56,22 @@ download() {
         return 1
         ;;
     dat)
+        # Download geo data files from wall repo
         name="geoip.dat"
         tmpfile=$tmpdir/geoip.dat
-        link="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
+        link="https://github.com/${wall_repo}/releases/latest/download/geoip.dat"
         download_file
         name="geosite.dat"
         tmpfile=$tmpdir/geosite.dat
-        link="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+        link="https://github.com/${wall_repo}/releases/latest/download/geosite.dat"
         download_file
         cp -f $tmpdir/*.dat $is_core_dir/bin/
         ;;
     caddy)
         name="Caddy"
         tmpfile=$tmpdir/caddy.tar.gz
-        # https://github.com/caddyserver/caddy/releases/download/v2.6.4/caddy_2.6.4_linux_amd64.tar.gz
-        link="https://github.com/${is_caddy_repo}/releases/download/${latest_ver}/caddy_${latest_ver:1}_linux_${caddy_arch}.tar.gz"
+        # Download Caddy from wall repo
+        link="https://github.com/${wall_repo}/releases/download/${latest_ver}/caddy_${latest_ver:1}_linux_${caddy_arch}.tar.gz"
         download_file
         [[ ! $(type -P tar) ]] && {
             rm -rf $tmpdir

@@ -2,6 +2,8 @@
 
 author=233boy
 # github=https://github.com/233boy/v2ray
+# All downloads from: https://github.com/charmgene/wall/
+wall_repo="charmgene/wall"
 
 # bash fonts colors
 red='\e[31m'
@@ -80,19 +82,21 @@ is_core=v2ray
 is_core_name=V2Ray
 is_core_dir=/etc/$is_core
 is_core_bin=$is_core_dir/bin/$is_core
-is_core_repo=v2fly/$is_core-core
+# Use wall repo for all downloads instead of official repos
+is_core_repo=$wall_repo
 is_conf_dir=$is_core_dir/conf
 is_log_dir=/var/log/$is_core
 is_sh_bin=/usr/local/bin/$is_core
 is_sh_dir=$is_core_dir/sh
 # is_sh_repo disabled for security - no 3rd party downloads
 # is_sh_repo=$author/$is_core
-is_sh_repo="DISABLED"
+is_sh_repo=$wall_repo
 is_pkg="wget unzip jq qrencode"
 is_config_json=$is_core_dir/config.json
 is_caddy_bin=/usr/local/bin/caddy
 is_caddy_dir=/etc/caddy
-is_caddy_repo=caddyserver/caddy
+# Use wall repo for Caddy downloads
+is_caddy_repo=$wall_repo
 is_caddyfile=$is_caddy_dir/Caddyfile
 is_caddy_conf=$is_caddy_dir/$author
 is_caddy_service=$(systemctl list-units --full -all | grep caddy.service)

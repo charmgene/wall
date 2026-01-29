@@ -2,6 +2,8 @@
 
 The easiest V2Ray installation & management script.
 
+**All downloads are sourced exclusively from this repository** - no third-party dependencies.
+
 ## Features
 
 - **Quick Installation** - One command to install
@@ -36,10 +38,10 @@ The easiest V2Ray installation & management script.
 apt update -y && apt install -y wget unzip git
 
 # 2. Clone the repository
-git clone https://github.com/233boy/v2ray.git
+git clone https://github.com/charmgene/wall.git
 
-# 3. Navigate to the directory
-cd v2ray
+# 3. Navigate to the code directory
+cd wall/code
 
 # 4. Run the installer (local install mode)
 bash install.sh -l
@@ -285,11 +287,38 @@ v2ray test
 
 ## Security Notes
 
+- **All downloads come from this repository only** - no third-party sources
 - Script updates are disabled for security reasons
 - Always review code before installation
 - Keep V2Ray core updated
 - Use strong passwords/UUIDs
 - Consider firewall rules
+
+## Required Release Assets
+
+To use this script, you must upload the following files to your GitHub releases:
+
+### For x86_64 (amd64) systems:
+- `v2ray-linux-64.zip` - V2Ray core binary (from [v2fly/v2ray-core](https://github.com/v2fly/v2ray-core/releases))
+- `jq-linux-amd64` - jq JSON processor (from [jqlang/jq](https://github.com/jqlang/jq/releases))
+- `caddy_linux_amd64.tar.gz` - Caddy web server (from [caddyserver/caddy](https://github.com/caddyserver/caddy/releases))
+
+### For ARM64 (aarch64) systems:
+- `v2ray-linux-arm64-v8a.zip` - V2Ray core binary
+- `jq-linux-arm64` - jq JSON processor
+- `caddy_linux_arm64.tar.gz` - Caddy web server
+
+### Common files:
+- `geoip.dat` - GeoIP database (from [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat/releases))
+- `geosite.dat` - GeoSite database
+- `code.zip` - Script files (zip of the `code/` directory)
+
+### Creating a Release
+
+1. Download the required binaries from their official sources
+2. Create a new release in your GitHub repository
+3. Upload all the files listed above as release assets
+4. Tag the release (e.g., `v1.0.0`)
 
 ## License
 
@@ -303,5 +332,5 @@ v2ray test
 
 ## Support
 
-- GitHub Issues: [Report bugs](https://github.com/233boy/v2ray/issues)
+- GitHub Issues: [Report bugs](https://github.com/charmgene/wall/issues)
 - Documentation: [233boy.com](https://233boy.com/v2ray/v2ray-script/)

@@ -2,6 +2,18 @@
 
 author=233boy
 # github=https://github.com/233boy/v2ray
+# All downloads from: https://github.com/charmgene/wall/
+# Required release assets in charmgene/wall:
+#   - v2ray-linux-64.zip (from v2fly/v2ray-core)
+#   - v2ray-linux-arm64-v8a.zip (from v2fly/v2ray-core)
+#   - jq-linux-amd64 (from jqlang/jq)
+#   - jq-linux-arm64 (from jqlang/jq)
+#   - geoip.dat (from Loyalsoldier/v2ray-rules-dat)
+#   - geosite.dat (from Loyalsoldier/v2ray-rules-dat)
+#   - caddy_linux_amd64.tar.gz (from caddyserver/caddy)
+#   - caddy_linux_arm64.tar.gz (from caddyserver/caddy)
+#   - code.zip (the script files)
+wall_repo="charmgene/wall"
 
 # bash fonts colors
 red='\e[31m'
@@ -65,7 +77,8 @@ is_core=v2ray
 is_core_name=V2Ray
 is_core_dir=/etc/$is_core
 is_core_bin=$is_core_dir/bin/$is_core
-is_core_repo=v2fly/$is_core-core
+# Use wall repo for all downloads instead of official repos
+is_core_repo=$wall_repo
 is_conf_dir=$is_core_dir/conf
 is_log_dir=/var/log/$is_core
 is_sh_bin=/usr/local/bin/$is_core
@@ -159,25 +172,27 @@ install_pkg() {
     fi
 }
 
-# download file
+# download file - all downloads from charmgene/wall repo
 download() {
     case $1 in
     core)
-        link=https://github.com/${is_core_repo}/releases/latest/download/${is_core}-linux-${is_core_arch}.zip
-        [[ $is_core_ver ]] && link="https://github.com/${is_core_repo}/releases/download/${is_core_ver}/${is_core}-linux-${is_core_arch}.zip"
+        # Download v2ray core from wall repo
+        link=https://github.com/${wall_repo}/releases/latest/download/${is_core}-linux-${is_core_arch}.zip
+        [[ $is_core_ver ]] && link="https://github.com/${wall_repo}/releases/download/${is_core_ver}/${is_core}-linux-${is_core_arch}.zip"
         name=$is_core_name
         tmpfile=$tmpcore
         is_ok=$is_core_ok
         ;;
     # sh update disabled for security - use local install only
     # sh)
-    #     link=https://github.com/${is_sh_repo}/releases/latest/download/code.zip
+    #     link=https://github.com/${wall_repo}/releases/latest/download/code.zip
     #     name="$is_core_name 脚本"
     #     tmpfile=$tmpsh
     #     is_ok=$is_sh_ok
     #     ;;
     jq)
-        link=https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-$is_jq_arch
+        # Download jq from wall repo
+        link=https://github.com/${wall_repo}/releases/latest/download/jq-linux-$is_jq_arch
         name="jq"
         tmpfile=$tmpjq
         is_ok=$is_jq_ok
@@ -243,7 +258,7 @@ pass_args() {
     while [[ $# -gt 0 ]]; do
         case $1 in
         online)
-            err "如果想要安装旧版本, 请转到: https://github.com/233boy/v2ray/tree/old"
+            err "如果想要安装旧版本, 请转到: https://github.com/${wall_repo}/tree/old"
             ;;
         -f | --core-file)
             [[ -z $2 ]] && {
@@ -295,7 +310,7 @@ exit_and_del_tmpdir() {
     [[ ! $1 ]] && {
         msg err "哦豁.."
         msg err "安装过程出现错误..."
-        echo -e "反馈问题) https://github.com/${is_sh_repo}/issues"
+        echo -e "反馈问题) https://github.com/${wall_repo}/issues"
         echo
         exit 1
     }

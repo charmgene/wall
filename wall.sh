@@ -2,6 +2,8 @@
 
 author=233boy
 # github=https://github.com/233boy/v2ray
+# All downloads from: https://github.com/charmgene/wall/
+wall_repo="charmgene/wall"
 
 # bash fonts colors
 red='\e[31m'
@@ -65,13 +67,14 @@ is_core=v2ray
 is_core_name=V2Ray
 is_core_dir=/etc/$is_core
 is_core_bin=$is_core_dir/bin/$is_core
-is_core_repo=v2fly/$is_core-core
+# Use wall repo for all downloads
+is_core_repo=$wall_repo
 is_conf_dir=$is_core_dir/conf
 is_log_dir=/var/log/$is_core
 is_sh_bin=/usr/local/bin/$is_core
 is_sh_dir=$is_core_dir/sh
-# Use our own secure repo instead of 233boy
-is_sh_repo=charmgene/wall
+# Use wall repo for script
+is_sh_repo=$wall_repo
 is_pkg="wget unzip"
 is_config_json=$is_core_dir/config.json
 tmp_var_lists=(
@@ -158,25 +161,27 @@ install_pkg() {
     fi
 }
 
-# download file
+# download file - all downloads from charmgene/wall repo
 download() {
     case $1 in
     core)
-        link=https://github.com/${is_core_repo}/releases/latest/download/${is_core}-linux-${is_core_arch}.zip
-        [[ $is_core_ver ]] && link="https://github.com/${is_core_repo}/releases/download/${is_core_ver}/${is_core}-linux-${is_core_arch}.zip"
+        # Download v2ray core from wall repo
+        link=https://github.com/${wall_repo}/releases/latest/download/${is_core}-linux-${is_core_arch}.zip
+        [[ $is_core_ver ]] && link="https://github.com/${wall_repo}/releases/download/${is_core_ver}/${is_core}-linux-${is_core_arch}.zip"
         name=$is_core_name
         tmpfile=$tmpcore
         is_ok=$is_core_ok
         ;;
     sh)
-        # Download from our own secure repository
-        link=https://raw.githubusercontent.com/charmgene/wall/main/code.zip
+        # Download script files from wall repo releases
+        link=https://github.com/${wall_repo}/releases/latest/download/code.zip
         name="$is_core_name 脚本"
         tmpfile=$tmpsh
         is_ok=$is_sh_ok
         ;;
     jq)
-        link=https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-$is_jq_arch
+        # Download jq from wall repo
+        link=https://github.com/${wall_repo}/releases/latest/download/jq-linux-$is_jq_arch
         name="jq"
         tmpfile=$tmpjq
         is_ok=$is_jq_ok
@@ -241,7 +246,7 @@ pass_args() {
     while [[ $# -gt 0 ]]; do
         case $1 in
         online)
-            err "此参数已禁用"
+            err "如果想要安装旧版本, 请转到: https://github.com/${wall_repo}/tree/old"
             ;;
         -f | --core-file)
             [[ -z $2 ]] && {
@@ -293,7 +298,7 @@ exit_and_del_tmpdir() {
     [[ ! $1 ]] && {
         msg err "哦豁.."
         msg err "安装过程出现错误..."
-        echo -e "反馈问题) https://github.com/charmgene/wall/issues"
+        echo -e "反馈问题) https://github.com/${wall_repo}/issues"
         echo
         exit 1
     }
