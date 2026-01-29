@@ -5,9 +5,9 @@ caddy_config() {
         mkdir -p $is_caddy_dir $is_caddy_dir/sites $is_caddy_conf
         cat >$is_caddyfile <<-EOF
 # don't edit this file #
-# for more info, see https://233boy.com/$is_core/caddy-auto-tls/
+# Caddy auto TLS configuration
 # 不要编辑这个文件 #
-# 更多相关请阅读此文章: https://233boy.com/$is_core/caddy-auto-tls/
+# Caddy configuration for auto TLS
 # https://caddyserver.com/docs/caddyfile/options
 {
   admin off
@@ -48,6 +48,6 @@ reverse_proxy https://$proxy_site {
         ;;
     esac
     [[ $1 != "new" && $1 != 'proxy' ]] && {
-        [[ ! -f ${is_caddy_site_file}.add ]] && echo "# see https://233boy.com/$is_core/caddy-auto-tls/" >${is_caddy_site_file}.add
+        [[ ! -f ${is_caddy_site_file}.add ]] && echo "# Caddy custom site configuration" >${is_caddy_site_file}.add
     }
 }

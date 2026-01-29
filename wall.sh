@@ -1,7 +1,7 @@
 #!/bin/bash
 
-author=233boy
-# github=https://github.com/233boy/v2ray
+author=charmgene
+# All downloads from this repo only
 # All downloads from: https://github.com/charmgene/wall/
 wall_repo="charmgene/wall"
 

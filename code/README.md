@@ -326,11 +326,9 @@ To use this script, you must upload the following files to your GitHub releases:
 
 ## Credits
 
-- Original script by [233boy](https://github.com/233boy)
 - V2Ray core by [v2fly](https://github.com/v2fly/v2ray-core)
 - Caddy server by [caddyserver](https://github.com/caddyserver/caddy)
 
 ## Support
 
 - GitHub Issues: [Report bugs](https://github.com/charmgene/wall/issues)
-- Documentation: [233boy.com](https://233boy.com/v2ray/v2ray-script/)
